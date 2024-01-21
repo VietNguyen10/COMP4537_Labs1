@@ -1,0 +1,61 @@
+/**
+ * Implementation referece:
+ * ChatGPT
+ * W3School
+ * MDN
+ * YouTube
+ */
+ 
+#title-container{
+    text-align: center;
+}
+
+#writer-content-container, #reader-content-container{
+    border: 1px solid darkslategray;
+    margin: 10px;
+}
+
+#add-note-button {
+    border: 2px solid darkgreen;
+    border-radius: 0.5em;
+    background-color: green;
+    color: white;
+    margin: 10px;
+}
+
+#landing-page {
+    margin-left: 10px;
+}
+
+#note_area{
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    height: 100px;
+    background: cornflowerblue;
+    color: white;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    vertical-align: middle; /* Add this line */
+}
+
+#remove_button {
+    display: inline-block;
+    margin: 10px;
+    margin-top: 25px;
+    border: 2px solid chocolate;
+    border-radius: 0.5em;
+    background-color: orange;
+    color: white;
+
+    width: 75px;
+    height: 30px;
+
+    vertical-align: middle; /* Add this line */
+}
+
+#time{
+    margin-left: 50px;
+}
