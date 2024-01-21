@@ -43,6 +43,7 @@ class Note{
 
     updateContent(newContent) {
         this.note_area.innerHTML = this.note_area.innerHTML.concat(newContent);
+        localStorage.setItem(this.key,  this.note_area.innerHTML);
     }
 
     getKey() {
