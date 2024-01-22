@@ -11,13 +11,24 @@ class Note{
         this.key = key;
         this.note_wrapper = document.createElement("div");
         this.note_wrapper.id = "note_wrapper";
-
         this.note_area = document.createElement("p");
         this.note_area.contentEditable = conteneditable;
         this.note_area.id = "note_area";
+        this.note_area.innerHTML = "";
         this.note_area.addEventListener("input", () => {
-            this.noteManager.updateArray(this.key, this.note_area.innerHTML);
-            this.noteManager.updateLocalStorage();
+            // Clear any existing timeout
+            clearTimeout(this.saveTimeout);
+        
+            // Set a new timeout for 2 seconds (2000 milliseconds)
+            this.saveTimeout = setTimeout(() => {
+                this.noteManager.updateArray(this.key, this.note_area.innerHTML);
+                this.noteManager.updateLocalStorage();
+            }, 1000);
+        });
+        
+        // Additionally, you may want to handle the blur event to clear the timeout
+        this.note_area.addEventListener("blur", () => {
+            clearTimeout(this.saveTimeout);
         });
 
         this.note_wrapper.appendChild(this.note_area);
@@ -43,7 +54,7 @@ class Note{
     }
 
     updateContent(newContent) {
-        this.note_area.innerHTML = newContent;
+        this.note_area.innerText = newContent;
     }
 
     getKey() {
