@@ -13,8 +13,6 @@ class NoteManager {
         this.isupdate = false;  
         this.time = document.getElementById("time");
 
-
-        // Check if the URL contains "reader.html"
         if (window.location.href.includes("reader.html")) {
             this.displayReaderNotes();
         } else {
@@ -73,6 +71,16 @@ class NoteManager {
             readOnlyContent.appendChild(newNote.getElement());
         }
     }
+    updateArray(key, content) {
+        for(let i = 0; i < this.noteList.length; i++) {
+            if(key === this.noteList[i].getKey()) {
+                this.noteList[i].updateContent(content);
+                break;
+            }
+        }
+        this.isupdate = true;
+        this.updateLocalStorage();
+    }
 
     updateLocalStorage() {
         if(this.isupdate){
@@ -84,26 +92,26 @@ class NoteManager {
             key: note.getKey(),
             content: note.getContent(),
         }));
-        if (window.location.href.includes("reader.html")) {
-            time.innerHTML = userMessage.UPDATE_TIME + localStorage.getItem("time");
-        } else {
-            time.innerHTML = userMessage.STORED_TIME + localStorage.getItem("time");
-        }
         localStorage.setItem('noteList', JSON.stringify(serializedNotes));
+        
+        this.displayTime();
     }
 
     loadFromLocalStorage() {
-
-        const storedData = localStorage.getItem('noteList');
-        if (storedData) {
-            const serializedNotes = JSON.parse(storedData);
-            this.noteList = serializedNotes.map(noteData => {
-                const newNote = new Note(this, noteData.key, true);
-                newNote.updateContent(noteData.content);
-                return newNote;
-            });
+        let storedData = localStorage.getItem('noteList');
+        const serializedNotes = JSON.parse(storedData);
+        this.noteList = serializedNotes.map(noteData => {
+            let newNote = new Note(this, noteData.key, true);
+            newNote.updateContent(noteData.content);
+            return newNote;
+        });
+        for(let i = 0; i < this.noteList.length; i++) {
+            console.log(this.noteList[i]);
         }
+        this.displayTime()
+    }
 
+    displayTime() {
         if (window.location.href.includes("reader.html")) {
             time.innerHTML = userMessage.UPDATE_TIME + localStorage.getItem("time");
         } else {

@@ -16,6 +16,7 @@ class Note{
         this.note_area.contentEditable = conteneditable;
         this.note_area.id = "note_area";
         this.note_area.addEventListener("input", () => {
+            this.noteManager.updateArray(this.key, this.note_area.innerHTML);
             this.noteManager.updateLocalStorage();
         });
 
@@ -34,22 +35,24 @@ class Note{
     }
 
     getContent() {
-        if(this.note_area.innerHTML == null) {
+        if(this.note_area.innerHTML === "") {
             return "";
         }else {
-            return this.note_area.innerHTML ;
+            return this.note_area.innerHTML;
         }
     }
 
     updateContent(newContent) {
-        this.note_area.innerHTML = this.note_area.innerHTML.concat(newContent);
-        localStorage.setItem(this.key,  this.note_area.innerHTML);
+        this.note_area.innerHTML = newContent;
     }
 
     getKey() {
         return this.key;
     }
 
+    getManager() {
+        return this.noteManager;
+    }
     getElement(){
         return this.note_wrapper;
     }
